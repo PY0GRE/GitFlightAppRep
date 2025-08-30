@@ -8,5 +8,8 @@ namespace Proyecto1.Models
 {
     public class Flight
     {
+        public string FlightNumber { get; set; } = string.Empty;
+        public DateTime DepartureDate { get; set; }
+        public decimal Price { get; set; }
     }
 }

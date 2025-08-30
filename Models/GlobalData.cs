@@ -13,20 +13,20 @@ namespace Proyecto1.Models
             new Flight()
             {
                 FlightNumber = "LH123",
-                Price = 900,
                 DepartureDate = DateTime.Now,
+                Price = 900
             },
             new()
             {
                 FlightNumber = "LH456",
-                 Price = 670,
                 DepartureDate = DateTime.Now,
+                Price = 900
             },
             new ()
             {
                 FlightNumber = "LH676",
-                 Price = 400,
                 DepartureDate = DateTime.Now,
+                Price = 900
             }
             ];
         private static ObservableCollection<FlightConnection> flightConnections = [
@@ -36,7 +36,7 @@ namespace Proyecto1.Models
                 DepartureCity = "Chicago",
                 ConnectionId = "A14",
                 ArrivalCity = "New York",
-                Flights = []
+                Flights = [flights.FirstOrDefault()]
 
             }
             ];
