@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Proyecto1.Models
 {
-    internal class Flight
+    public class Flight
     {
     }
 }
