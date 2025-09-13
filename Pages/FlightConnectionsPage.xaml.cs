@@ -21,4 +21,9 @@ public partial class FlightConnectionsPage : ContentPage
 
 		await Shell.Current.GoToAsync($"/{nameof(FlightsConnectionDetailsPage)}", navParams);
     }
+
+    private async void OnAddNewFlightConnection(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync($"/{nameof(AddNewFlightConnection)}");
+    }
 }

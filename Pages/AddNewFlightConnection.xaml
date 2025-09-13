@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Proyecto1.Pages.AddNewFlightConnection"
+             Title="AddNewFlightConnection">
+    <VerticalStackLayout>
+        <Label 
+            Text="Add New Flight Connection"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+
+        <Label Text="ConnectionId"/>
+        <Entry Text="{Binding ConnectionId}"
+               Placeholder="Enter ConnectionId"
+               MaxLength="5"/>
+
+        <Label Text="Airline"/>
+        <Entry Text="{Binding Airline}"
+               Placeholder="Enter Airline"/>
+
+        <Label Text="Departure City"/>
+        <Entry Text="{Binding DepartureCity}"
+               Placeholder="Enter Departure City"/>
+        
+        <Label Text="Arrival City"/>
+        <Entry Text="{Binding ArrivalCity}"
+               Placeholder="Enter Arrival City"/>
+
+        <Picker Title="Select Flight"
+                ItemsSource="{Binding Flights}"
+                ItemDisplayBinding="{Binding FlightNumber}"
+                SelectedItem="{Binding SelectedFlight}"/>
+        
+        <Button Text="Add Flight Connection"
+                Command="{Binding AddNewConnectionFlightCommand}"/>
+    </VerticalStackLayout>
+</ContentPage>

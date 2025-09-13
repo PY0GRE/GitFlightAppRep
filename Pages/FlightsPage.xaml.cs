@@ -6,4 +6,9 @@ public partial class FlightsPage : ContentPage
 	{
 		InitializeComponent();
 	}
+
+    private async void OnAddNewFlight(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync($"/{nameof(AddNewFlight)}");
+    }
 }
