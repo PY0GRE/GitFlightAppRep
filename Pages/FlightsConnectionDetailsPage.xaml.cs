@@ -12,7 +12,7 @@ public partial class FlightsConnectionDetailsPage : ContentPage
             _selectedConnection = value;
             if ( _selectedConnection != null )
             {
-                connectionsCollectionView.ItemsSource = _selectedConnection.Flights;
+                //connectionsCollectionView.ItemsSource = _selectedConnection.Flights;
             }
         }
 	}

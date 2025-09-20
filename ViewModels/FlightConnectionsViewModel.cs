@@ -49,10 +49,10 @@ namespace Proyecto1.ViewModels
 
             FlightConnection conFlight = new()
             {
-                ConnectionId = ConnectionId.Trim(),
-                Airline = Airline.Trim(),
-                DepartureCity = DepartureCity.Trim(),
-                ArrivalCity = ArrivalCity.Trim()
+                //ConnectionId = ConnectionId.Trim(),
+                //Airline = Airline.Trim(),
+                //DepartureCity = DepartureCity.Trim(),
+                //ArrivalCity = ArrivalCity.Trim()
             };
 
             GlobalData.FlightConnections.Add(conFlight);

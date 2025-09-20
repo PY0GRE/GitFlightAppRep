@@ -32,11 +32,11 @@ namespace Proyecto1.Models
         private static ObservableCollection<FlightConnection> flightConnections = [
             new()
             {
-                Airline = "Iberia",
-                DepartureCity = "Chicago",
-                ConnectionId = "A14",
-                ArrivalCity = "New York",
-                Flights = [flights.FirstOrDefault()]
+                //Airline = "Iberia",
+                //DepartureCity = "Chicago",
+                //ConnectionId = "A14",
+                //ArrivalCity = "New York",
+                //Flights = [flights.FirstOrDefault()]
 
             }
             ];
