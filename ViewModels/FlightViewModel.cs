@@ -1,8 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Proyecto1.Models;
+using Proyecto1.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -103,6 +105,8 @@ namespace Proyecto1.ViewModels
 
     public partial class FlightViewModel : ObservableObject
     {
+        private readonly FlightRepositorie flightRepositorie;
+
         // Ctrl - k - u to uncomment
         [ObservableProperty]
         private string _flightNumber = string.Empty;
@@ -112,6 +116,13 @@ namespace Proyecto1.ViewModels
 
         [ObservableProperty]
         private DateTime _departureDate = DateTime.Now;
+
+        public FlightViewModel(FlightRepositorie flightRepositorie)
+        {
+            this.flightRepositorie = flightRepositorie;
+        }
+
+        public ObservableCollection<Flight> flights { get; set; } = [];
 
         [RelayCommand]
         public async Task AddNewFlight()

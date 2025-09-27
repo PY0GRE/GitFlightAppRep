@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Proyecto1.Repositories;
+using Proyecto1.ViewModels;
 
 namespace Proyecto1
 {
@@ -25,6 +27,9 @@ namespace Proyecto1
 
             // Register the DataContext as a service
             builder.Services.AddDbContext<Models.DataContext>(options => options.UseSqlite($"Data Source={dbPath}"));
+
+            builder.Services.AddSingleton<FlightRepositorie>();
+            builder.Services.AddSingleton<FlightViewModel>();
 
             // Build the app
             var app = builder.Build();
