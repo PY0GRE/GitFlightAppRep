@@ -10,7 +10,10 @@
                    VerticalOptions="Center"
                    HorizontalOptions="Center"/>
 
-            <CollectionView ItemsSource="{x:Static models:GlobalData.Flights}">
+            <CollectionView ItemsSource="{Binding Flights}"
+                            SelectionMode="Single"
+                            SelectedItem="{Binding SelectedFlight}"
+                            SelectionChanged="OnFlightSelected">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Border Padding="10"

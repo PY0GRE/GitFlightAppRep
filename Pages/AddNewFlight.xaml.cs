@@ -6,10 +6,10 @@ namespace Proyecto1.Pages;
 
 public partial class AddNewFlight : ContentPage
 {
-	public AddNewFlight()
+	public AddNewFlight(FlightViewModel flightViewModel)
 	{
 		InitializeComponent();
-        BindingContext = new FlightViewModel();
+        BindingContext = flightViewModel;
     }
 
     // Ctrl - k - c to comment

@@ -117,12 +117,25 @@ namespace Proyecto1.ViewModels
         [ObservableProperty]
         private DateTime _departureDate = DateTime.Now;
 
+        [ObservableProperty]
+        private Flight? _selectedFlight;
+
         public FlightViewModel(FlightRepositorie flightRepositorie)
         {
             this.flightRepositorie = flightRepositorie;
         }
 
-        public ObservableCollection<Flight> flights { get; set; } = [];
+        public ObservableCollection<Flight> Flights { get; set; } = [];
+
+        public async Task LoadFlightsAsync()
+        {
+            Flights.Clear();
+            var flightsFromDb = await flightRepositorie.GetAllFlightsAsync();
+            foreach ( var flight in flightsFromDb )
+            {
+                Flights.Add(flight);
+            }
+        }
 
         [RelayCommand]
         public async Task AddNewFlight()
@@ -133,7 +146,7 @@ namespace Proyecto1.ViewModels
                 return;
             }
 
-            if ( GlobalData.Flights.FirstOrDefault(f => f.FlightNumber.Equals(FlightNumber)) != null )
+            if ( await flightRepositorie.GetFlightByIdAsync(FlightNumber) != null )
             {
                 await Shell.Current.DisplayAlert("Error", $"Flight Number {FlightNumber} alreaddy exists", "Ok");
                 return;
@@ -146,9 +159,15 @@ namespace Proyecto1.ViewModels
                 Price = decimal.Parse(Price)
             };
 
-            GlobalData.Flights.Add(flight);
+            await flightRepositorie.AddFlightAsync(flight);
             await Shell.Current.DisplayAlert("Success", $"New flight added successfully", "Ok");
             await Shell.Current.GoToAsync("..");
         } 
+
+        [RelayCommand]
+        public async Task DeleteFlight()
+        {
+            await flightRepositorie.DeleteFlightAsync(SelectedFlight.FlightNumber);
+        }
     }
 }

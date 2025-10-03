@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+// Separa logica de control de datos con el de negocio
 namespace Proyecto1.Repositories
 {
     public class FlightRepositorie(DataContext dataContext)

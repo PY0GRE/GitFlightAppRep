@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Proyecto1.Pages.FlightDetailsPage"
+             Title="FlightDetailsPage">
+    <VerticalStackLayout Margin="10">
+        <Label 
+        Text="Add New Flight"
+        VerticalOptions="Center" 
+        HorizontalOptions="Center" />
+
+        <Label Text="Flight Number"/>
+        <Entry Text="{Binding SelectedFlight.FlightNumber}"
+           Placeholder="Enter Flight Number"
+           MaxLength="5"/>
+
+        <Label Text="Departure Date"/>
+        <DatePicker Date="{Binding SelectedFlight.DepartureDate}"/>
+
+        <Label Text="Price"/>
+        <Entry Text="{Binding SelectedFlight.Price}"
+           Placeholder="Enter Price"
+           Keyboard="Numeric"/>
+
+        <!--Button Text="Add Flight"
+            Command="{Binding AddNewFlightCommand}"/-->
+    </VerticalStackLayout>
+</ContentPage>
