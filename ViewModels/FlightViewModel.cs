@@ -120,6 +120,9 @@ namespace Proyecto1.ViewModels
         [ObservableProperty]
         private Flight? _selectedFlight;
 
+        [ObservableProperty]
+        private bool _isEnabled = false;
+
         public FlightViewModel(FlightRepositorie flightRepositorie)
         {
             this.flightRepositorie = flightRepositorie;
@@ -162,7 +165,36 @@ namespace Proyecto1.ViewModels
             await flightRepositorie.AddFlightAsync(flight);
             await Shell.Current.DisplayAlert("Success", $"New flight added successfully", "Ok");
             await Shell.Current.GoToAsync("..");
-        } 
+        }
+
+        [RelayCommand]
+        public async Task UpdateFlight()
+        {
+            if ( SelectedFlight == null )
+            {
+                await Shell.Current.DisplayAlert("Error", "No flight selected", "Ok");
+                return;
+            }
+            if ( SelectedFlight.Price <= 0 )
+            {
+                await Shell.Current.DisplayAlert("Error", "The flight info is not complete", "Ok");
+                return;
+            }
+
+            var flightInDb = await flightRepositorie.GetFlightByIdAsync(SelectedFlight.FlightNumber);
+            if ( flightInDb == null )
+            {
+                await Shell.Current.DisplayAlert("Error", $"Flight Number {SelectedFlight.FlightNumber} does not exist", "Ok");
+                return;
+            }
+            //flightInDb.Price = SelectedFlight.Price;
+            //flightInDb.DepartureDate = SelectedFlight.DepartureDate;
+
+            await flightRepositorie.UpdateFlightAsync(SelectedFlight);
+            
+            IsEnabled = false;
+            await Shell.Current.DisplayAlert("Success", $"Flight updated successfully", "Ok");
+        }
 
         [RelayCommand]
         public async Task DeleteFlight()

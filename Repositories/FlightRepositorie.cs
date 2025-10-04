@@ -50,7 +50,17 @@ namespace Proyecto1.Repositories
         /// <returns></returns>
         public async Task UpdateFlightAsync(Flight flight)
         {
-            dataContext.Flights.Update(flight);
+            // Modificando para despues guardarlo
+            var existingFlight = await dataContext.Flights.FindAsync(flight.FlightNumber);
+            if ( existingFlight == null )
+            {
+                throw new InvalidOperationException($"Flight with number {flight.FlightNumber} does not exist.");
+            }
+            existingFlight.FlightNumber = flight.FlightNumber;
+            existingFlight.DepartureDate = flight.DepartureDate;
+            existingFlight.Price = flight.Price;
+
+            dataContext.Flights.Update(existingFlight);
             await dataContext.SaveChangesAsync();
         }
 

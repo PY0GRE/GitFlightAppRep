@@ -2,6 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Proyecto1.Pages.FlightDetailsPage"
+             xmlns:vm="clr-namespace:Proyecto1.ViewModels"
+             x:DataType="vm:FlightViewModel"
              Title="FlightDetailsPage">
     <VerticalStackLayout Margin="10">
         <Label 
@@ -12,17 +14,39 @@
         <Label Text="Flight Number"/>
         <Entry Text="{Binding SelectedFlight.FlightNumber}"
            Placeholder="Enter Flight Number"
-           MaxLength="5"/>
+           MaxLength="5"
+               IsEnabled="False"/>
 
         <Label Text="Departure Date"/>
-        <DatePicker Date="{Binding SelectedFlight.DepartureDate}"/>
+        <DatePicker Date="{Binding SelectedFlight.DepartureDate}"
+                    IsEnabled="{Binding IsEnabled}"/>
 
         <Label Text="Price"/>
         <Entry Text="{Binding SelectedFlight.Price}"
            Placeholder="Enter Price"
-           Keyboard="Numeric"/>
+           Keyboard="Numeric"
+               IsEnabled="{Binding IsEnabled}"/>
 
-        <!--Button Text="Add Flight"
-            Command="{Binding AddNewFlightCommand}"/-->
+        <VerticalStackLayout
+            x:Name="mainOptions"
+            IsVisible="True">
+            <Button Text="Edit Flight"
+                Clicked="onEditClicked"/>
+
+            <Button Text="Remove Flight"/>
+            <!--Clicked="onRemoveClicked"/>-->
+        </VerticalStackLayout>
+        
+        <VerticalStackLayout
+            x:Name="editOptions"
+            IsVisible="False">
+            <Button Text="Save Changes"
+                    Command="{Binding UpdateFlightCommand}"
+                Background="CornflowerBlue"/>
+
+            <Button Text="Cancel"
+                BackgroundColor="Gray"
+                Clicked="onCancelClicked"/>
+        </VerticalStackLayout>
     </VerticalStackLayout>
 </ContentPage>

@@ -23,6 +23,7 @@
                Keyboard="Numeric"/>
 
         <Button Text="Add Flight"
-                Command="{Binding AddNewFlightCommand}"/>
+                Command="{Binding AddNewFlightCommand}"
+                IsEnabled="{Binding Register}"/>
     </VerticalStackLayout>
 </ContentPage>
