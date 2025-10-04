@@ -187,6 +187,8 @@ namespace Proyecto1.ViewModels
                 await Shell.Current.DisplayAlert("Error", $"Flight Number {SelectedFlight.FlightNumber} does not exist", "Ok");
                 return;
             }
+
+            // Not needed when using the Update method from the repository
             //flightInDb.Price = SelectedFlight.Price;
             //flightInDb.DepartureDate = SelectedFlight.DepartureDate;
 
@@ -194,12 +196,19 @@ namespace Proyecto1.ViewModels
             
             IsEnabled = false;
             await Shell.Current.DisplayAlert("Success", $"Flight updated successfully", "Ok");
+            await Shell.Current.GoToAsync("..");
         }
 
         [RelayCommand]
         public async Task DeleteFlight()
         {
+            bool answer = await Shell.Current.DisplayAlert("Confirm", $"Are you sure you want to delete flight {SelectedFlight?.FlightNumber}?", "Yes", "No");
+            if ( !answer || SelectedFlight == null ) return;
+
             await flightRepositorie.DeleteFlightAsync(SelectedFlight.FlightNumber);
+
+            await Shell.Current.DisplayAlert("Success", $"Flight deleted successfully", "Ok");
+            await Shell.Current.GoToAsync("..");
         }
     }
 }
