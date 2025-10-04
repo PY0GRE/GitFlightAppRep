@@ -12,8 +12,14 @@ namespace Proyecto1.Models
         public string Airline { get; set; } = string.Empty;
         public string DepartureCity { get; set; } = string.Empty;
         public string ArrivalCity { get; set; } = string.Empty;
+<<<<<<< HEAD
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public string Description { get; set; } = string.Empty;
+=======
+        public string CreatedById { get; set; } = string.Empty;
+        public User CreatedBy { get; set; } = new();
+
+>>>>>>> feature/add-user-profile
         public ICollection<FlightConnection> FlightConnections { get; set; } = [];
     }
 }

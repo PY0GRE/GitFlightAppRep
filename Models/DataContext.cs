@@ -44,6 +44,12 @@ namespace Proyecto1.Models
                 .HasOne(fc => fc.Connection)
                 .WithMany(c => c.FlightConnections)
                 .HasForeignKey(fc => fc.ConnectionId);
+
+            modelBuilder.Entity<User>()
+                .HasKey(u => u.UserId);
+
+            modelBuilder.Entity<User>()
+                .Property(u => u.UserName).IsRequired();
         }
     }
 }
