@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Proyecto1.Pages.AddNewPlanePage"
+             xmlns:vm="clr-namespace:Proyecto1.ViewModels"
+             x:DataType="vm:PlaneViewModel"
+             Title="AddNewPlanePage">
+    <ScrollView>
+        <VerticalStackLayout Padding="20"
+                          Spacing="15">
+
+            <Label Text="Add New Plane"
+                FontAttributes="Bold"
+                FontSize="24"
+                HorizontalOptions="Center" />
+
+            <Label Text="Model:"
+                FontAttributes="Bold" />
+            <Entry Placeholder="Enter model name"
+                Text="{Binding Model}" />
+
+            <Label Text="Manufacturer:"
+                FontAttributes="Bold" />
+            <Entry Placeholder="Enter manufacturer name"
+                Text="{Binding Manufacturer}" />
+
+            <!-- Imagen -->
+            <Border
+                HeightRequest="200"
+                WidthRequest="200"
+                HorizontalOptions="Center">
+                <Image Source="{Binding ImagePath}"
+                    Aspect="AspectFill"
+                    HeightRequest="200"
+                    WidthRequest="200" />
+            </Border>
+
+            <Button Text="Select Image"
+                 Command="{Binding SelectImageCommand}"
+                 BackgroundColor="#1976D2"
+                 TextColor="White"
+                 CornerRadius="10" />
+
+            <Button Text="Save Plane"
+                 Command="{Binding SavePlaneCommand}"
+                 BackgroundColor="#2E7D32"
+                 TextColor="White"
+                 CornerRadius="10" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

@@ -18,6 +18,7 @@ namespace Proyecto1.Models
         public DbSet<Connection> Connections { get; set; }
         public DbSet<FlightConnection> FlightConnections { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Plane> Planes { get; set; }
 
         /// <summary>
         /// Overrided method to configure the model
@@ -56,6 +57,9 @@ namespace Proyecto1.Models
                 .HasOne(c => c.CreatedBy)
                 .WithMany(c => c.Connections)
                 .HasForeignKey(c => c.CreatedById);
+
+            modelBuilder.Entity<Plane>()
+                .HasKey(p => p.PlaneId);
         }
     }
 }

@@ -16,5 +16,12 @@
         Title="Flights Connections"
         ContentTemplate="{DataTemplate pages:FlightConnectionsPage}"
         Route="FlightConnectionsPage" />
-
+    <ShellContent
+        Title="Add New User"
+        ContentTemplate="{DataTemplate pages:AddNewUserPage}"
+        Route="AddNewUserPage" />
+    <ShellContent
+    Title="Add Plane User"
+    ContentTemplate="{DataTemplate pages:AddNewPlanePage}"
+    Route="AddNewPlanePage" />
 </Shell>

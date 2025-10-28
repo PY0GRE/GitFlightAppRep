@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using CommunityToolkit.Maui;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Proyecto1.Repositories;
 using Proyecto1.ViewModels;
@@ -12,6 +13,10 @@ namespace Proyecto1
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseMauiCommunityToolkit(options =>
+                {
+                    options.SetShouldEnableSnackbarOnWindows(true);
+                })
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -30,6 +35,10 @@ namespace Proyecto1
 
             builder.Services.AddSingleton<FlightRepositorie>();
             builder.Services.AddSingleton<FlightViewModel>();
+
+            builder.Services.AddSingleton<UserViewModel>();
+
+            builder.Services.AddSingleton<PlaneViewModel>();
 
             // Build the app
             var app = builder.Build();
