@@ -123,12 +123,12 @@ namespace Proyecto1.ViewModels
         [ObservableProperty]
         private bool _isEnabled = false;
 
+        public ObservableCollection<Flight> Flights { get; set; } = [];
+
         public FlightViewModel(FlightRepositorie flightRepositorie)
         {
             this.flightRepositorie = flightRepositorie;
         }
-
-        public ObservableCollection<Flight> Flights { get; set; } = [];
 
         public async Task LoadFlightsAsync()
         {

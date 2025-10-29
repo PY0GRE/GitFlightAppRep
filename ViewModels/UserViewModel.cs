@@ -4,8 +4,10 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Proyecto1.Helpers;
 using Proyecto1.Models;
+using Proyecto1.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,17 +16,47 @@ namespace Proyecto1.ViewModels
 {
     public partial class UserViewModel : ObservableObject
     {
-        private readonly DataContext dataContext;
+        //private readonly DataContext dataContext;
+        private readonly UserRepository userRepository;
+        
         [ObservableProperty]
         private string userName = String.Empty;
+
         [ObservableProperty]
         private byte[]? profileImage;
+
         [ObservableProperty]
         private ImageSource? profileImageSource;
 
-        public UserViewModel(DataContext dataContext)
+        // Properties for Collection View
+        [ObservableProperty]
+        private User? _selectedUser;
+
+        [ObservableProperty]
+        private bool _isEnabled = false;
+
+        public ObservableCollection<User> Users { get; set; } = [];
+
+        public UserViewModel(UserRepository userRepository)
         {
-            this.dataContext = dataContext;
+            this.userRepository = userRepository;
+        }
+
+        // Cambiamos el Constructor para que reciba el Repositorio y no el DataContext
+        //public UserViewModel(DataContext dataContext)
+        //{
+        //    this.dataContext = dataContext;
+        //}
+
+        public async Task LoadUsersAsync()
+        {
+            Users.Clear();
+            var usersFromDb = await userRepository.GetAllUsersAsync();
+
+            foreach (var user in usersFromDb)
+            {
+                Users.Add(user);
+            }
         }
 
         [RelayCommand]
@@ -59,18 +91,25 @@ namespace Proyecto1.ViewModels
                 await Shell.Current.DisplayAlert("Validation Error", "User name is required.", "OK");
                 return;
             }
+
             var user = new User
             {
                 UserName = this.UserName,
                 ProfileImage = this.ProfileImage
             };
-            dataContext.Users.Add(user);
-            await dataContext.SaveChangesAsync();
+
+            //dataContext.Users.Add(user);
+            //await dataContext.SaveChangesAsync();
+            await userRepository.AddUserAsync(user);
+
             // Un toast mejor
             //await Shell.Current.DisplayAlert("Success", "User saved successfully!", "OK");
-            CancellationTokenSource cancellationToken = new();
-            var toast = Toast.Make("User saved successfully!", ToastDuration.Short, 14);
-            await toast.Show(cancellationToken.Token);
+            //CancellationTokenSource cancellationToken = new();
+            //var toast = Toast.Make("User saved successfully!", ToastDuration.Short, 14);
+            //await toast.Show(cancellationToken.Token);
+            await ToastHelper.GetToastAsync("User saved succesfully!", ToastDuration.Short, 14);
         }
+
+        // Los metodos de update y delete quedan pendientes
     }
 }

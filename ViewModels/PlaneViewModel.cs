@@ -4,8 +4,10 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Proyecto1.Helpers;
 using Proyecto1.Models;
+using Proyecto1.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,17 +16,47 @@ namespace Proyecto1.ViewModels
 {
     public partial class PlaneViewModel : ObservableObject
     {
+        //private readonly DataContext dataContext;
+        private readonly PlaneRepository planeRepository;
+        
         [ObservableProperty]
         private string model = string.Empty;
+
         [ObservableProperty]
         private string manufacturer = string.Empty;
+
         [ObservableProperty]
         private string? imagePath;
-        private readonly DataContext dataContext;
 
-        public PlaneViewModel(DataContext dataContext)
+        // Properties for Collection View
+        [ObservableProperty]
+        private Plane? _selectedPlane;
+
+        [ObservableProperty]
+        private bool _isEnabled = false;
+
+        public ObservableCollection<Plane> Planes { get; set; } = [];
+
+        public PlaneViewModel(PlaneRepository planeRepository)
         {
-            this.dataContext = dataContext;
+            this.planeRepository = planeRepository;
+        }
+
+        // Cambiamos el Constructor para que reciba el Repositorio y no el DataContext
+        //public PlaneViewModel(DataContext dataContext)
+        //{
+        //    this.dataContext = dataContext;
+        //}
+
+        public async Task LoadPlanesAsync()
+        {
+            Planes.Clear();
+            var planesFromDb = await planeRepository.GetAllPlanesAsync();
+
+            foreach ( var plane in planesFromDb )
+            {
+                Planes.Add(plane);
+            }
         }
 
         [RelayCommand]
@@ -64,12 +96,19 @@ namespace Proyecto1.ViewModels
                 ImagePath = this.ImagePath
             };
 
-            await dataContext.Planes.AddAsync(plane);
-            await dataContext.SaveChangesAsync();
+            //await dataContext.Planes.AddAsync(plane);
+            //await dataContext.SaveChangesAsync();
+            await planeRepository.AddPlaneAsync(plane);
 
-            CancellationTokenSource cancellationToken = new();
-            var toast = Toast.Make("Plane saved successfully!", ToastDuration.Short, 14);
-            await toast.Show(cancellationToken.Token);
+            // Before Helper
+            // CancellationTokenSource cancellationToken = new();
+            // var toast = Toast.Make("Plane saved successfully!", ToastDuration.Short, 14);
+            // await toast.Show(cancellationToken.Token);
+
+            // With Helper
+            await ToastHelper.GetToastAsync("Plane saved successfully!", ToastDuration.Short, 14);
         }
+
+        // Los metodos de update y delete quedan pendientes
     }
 }
