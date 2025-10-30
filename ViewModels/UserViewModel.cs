@@ -53,8 +53,14 @@ namespace Proyecto1.ViewModels
             Users.Clear();
             var usersFromDb = await userRepository.GetAllUsersAsync();
 
-            foreach (var user in usersFromDb)
+            foreach ( var user in usersFromDb )
             {
+                // Si tu modelo tiene byte[] ProfileImage
+                if ( user.ProfileImage != null && user.ProfileImage.Length > 0 )
+                {
+                    user.ProfileImageSource = ImageHelper.ToImageSource(user.ProfileImage);
+                }
+
                 Users.Add(user);
             }
         }
