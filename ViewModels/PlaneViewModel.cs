@@ -107,6 +107,8 @@ namespace Proyecto1.ViewModels
 
             // With Helper
             await ToastHelper.GetToastAsync("Plane saved successfully!", ToastDuration.Short, 14);
+
+            await Shell.Current.GoToAsync("..");
         }
 
         // Los metodos de update y delete quedan pendientes

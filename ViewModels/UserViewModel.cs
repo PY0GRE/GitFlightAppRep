@@ -108,6 +108,8 @@ namespace Proyecto1.ViewModels
             //var toast = Toast.Make("User saved successfully!", ToastDuration.Short, 14);
             //await toast.Show(cancellationToken.Token);
             await ToastHelper.GetToastAsync("User saved succesfully!", ToastDuration.Short, 14);
+
+            await Shell.Current.GoToAsync("..");
         }
 
         // Los metodos de update y delete quedan pendientes

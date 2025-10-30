@@ -37,8 +37,10 @@ namespace Proyecto1
             builder.Services.AddSingleton<FlightViewModel>();
 
             builder.Services.AddSingleton<UserViewModel>();
+            builder.Services.AddSingleton<UserRepository>();
 
             builder.Services.AddSingleton<PlaneViewModel>();
+            builder.Services.AddSingleton<PlaneRepository>();
 
             // Build the app
             var app = builder.Build();

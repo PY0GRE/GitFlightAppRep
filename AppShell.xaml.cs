@@ -11,6 +11,8 @@ namespace Proyecto1
             Routing.RegisterRoute(nameof(AddNewFlightConnection), typeof(AddNewFlightConnection));
             Routing.RegisterRoute(nameof(FlightsConnectionDetailsPage), typeof(FlightsConnectionDetailsPage));
             Routing.RegisterRoute(nameof(FlightDetailsPage), typeof(FlightDetailsPage));
+            Routing.RegisterRoute(nameof(AddNewUserPage), typeof(AddNewUserPage));
+            Routing.RegisterRoute(nameof(AddNewPlanePage), typeof(AddNewPlanePage));
         }
     }
 }
