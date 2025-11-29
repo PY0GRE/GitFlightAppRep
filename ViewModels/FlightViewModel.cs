@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Proyecto1.Helpers;
 using Proyecto1.Models;
 using Proyecto1.Repositories;
 using System;
@@ -209,6 +210,32 @@ namespace Proyecto1.ViewModels
 
             await Shell.Current.DisplayAlert("Success", $"Flight deleted successfully", "Ok");
             await Shell.Current.GoToAsync("..");
+        }
+
+        [RelayCommand]
+        public async Task ExportToExcelAsync()
+        {
+            var flights = await flightRepositorie.ExportFlightInfoAsync();
+            var filePath = DocumentHelper.ExportToExcel(flights, "Flights.xlsx");
+            await Shell.Current.DisplayAlert("Success", "Flights exported to Excel successfully", "Ok");
+
+            await Launcher.OpenAsync(new OpenFileRequest
+            {
+                File = new ReadOnlyFile(filePath)
+            });
+        }
+
+        [RelayCommand]
+        public async Task ExportToPDFAsync()
+        {
+            var flights = await flightRepositorie.ExportFlightInfoAsync();
+            var filePath = await DocumentHelper.ExportToPDFAsync(flights, "Flights.xlsx");
+            await Shell.Current.DisplayAlert("Success", "Flights exported to Excel successfully", "Ok");
+
+            await Launcher.OpenAsync(new OpenFileRequest
+            {
+                File = new ReadOnlyFile(filePath)
+            });
         }
     }
 }

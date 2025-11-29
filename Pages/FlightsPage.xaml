@@ -4,6 +4,10 @@
              x:Class="Proyecto1.Pages.FlightsPage"
              xmlns:models="clr-namespace:Proyecto1.Models"
              Title="FlightsPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Exportar a Excel"
+                     Command="{Binding ExportToExcelCommand}"/>
+    </ContentPage.ToolbarItems>
     <ScrollView>
         <VerticalStackLayout>
             <Label Text="Available Flights"

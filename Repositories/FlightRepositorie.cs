@@ -1,12 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Proyecto1.Models;
+using Proyecto1.Models.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-// Separa logica de control de datos con el de negocio
+// Separa logica de control de datos con el de negocio, aqui se maneja todo lo relacionado con la base de datos
 namespace Proyecto1.Repositories
 {
     public class FlightRepositorie(DataContext dataContext)
@@ -79,6 +80,19 @@ namespace Proyecto1.Repositories
             }
             //dataContext.Flights.Remove(flight);
             //await dataContext.SaveChangesAsync();
+        }
+
+        public async Task<List<FlightOutputDTO>> ExportFlightInfoAsync()
+        {
+            return await dataContext.Flights
+            .AsNoTracking()
+            .Select(f => new FlightOutputDTO
+            {
+                FlightNumber = f.FlightNumber,
+                DepartureDate = f.DepartureDate,
+                Price = f.Price
+             })
+            .ToListAsync();
         }
     }
 }

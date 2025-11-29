@@ -42,6 +42,9 @@ namespace Proyecto1
             builder.Services.AddSingleton<PlaneViewModel>();
             builder.Services.AddSingleton<PlaneRepository>();
 
+            // Linea vital para lo de PDF
+            //QuestPDF.Settings.License = QuestPDF.LicenseType.Community;
+
             // Build the app
             var app = builder.Build();
 
